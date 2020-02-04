@@ -31,3 +31,10 @@ public class ChatHub : Hub
 
 startUP.cs
 services.AddSignalR();
+
+
+//route
+app.UseSignalR(routes =>
+{
+    routes.MapHub<ChatHub>("/chathub");
+});
