@@ -2,8 +2,6 @@
 
 ### web api download file for client 
 
-public async Task<FileResult> download()
-{
     var mimeType = 'application/x-zip-compressed';
     try
     {
@@ -19,16 +17,14 @@ public async Task<FileResult> download()
     {
 
     }
-    return null;
-}
+
+
 
 
 ### dependency
-namespace: System.IO.Compression.ZipFile
+namespace System.IO.Compression.ZipFile
 
-public static void CompressZipFolder(string startPath, string zipPath)
-{
-    ZipFile.CreateFromDirectory(startPath, zipPath);
-}
+ZipFile.CreateFromDirectory(startPath, zipPath);
+
 
 
