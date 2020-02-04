@@ -1,6 +1,7 @@
 #SignalR Sample in dot net core
 
 ### Model
+
 ```
 public class ChatMessage
 {
@@ -8,9 +9,9 @@ public class ChatMessage
     public string Text{ get; set; }
     public DateTime Date { get; set; }
 }
+
    
 ### ChatHub
-```
 public class ChatHub : Hub
 {
     public async Task sendMessage(string name, string text)
