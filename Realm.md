@@ -1,9 +1,9 @@
 # Realm in dot net core
 
 
-### model
-sample model 
+### sample model 
 
+```
 public class OBsCategory : RealmObject
 {
     [System.ComponentModel.DefaultValue("")]
@@ -18,6 +18,7 @@ public class OBsCategory : RealmObject
     [Backlink(nameof(Book.Category))]
     public IQueryable<Book> Book { get; }
 }
+
 
 string realmPath = Path.Combine(realmDir, DBName);
 var config = new RealmConfiguration(realmPath);
