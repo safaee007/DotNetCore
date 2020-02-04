@@ -42,3 +42,26 @@ public static async Task<string> postToElasticsearch(string url, Dictionary<stri
 	return responseString;
 }
 
+# Insert Bulk To ElasticSearch
+step 1 : Elasticsearch.Net in nuget
+step 2 :
+
+
+using Elasticsearch.Net;
+
+```Variables
+static string serverURLElastic = Environment.GetEnvironmentVariable("ELASTIC_URL") OR "https://......";
+static string usernameElastic = Environment.GetEnvironmentVariable("ELASTIC_USERNAME");
+static string passwordElastic = Environment.GetEnvironmentVariable("ELASTIC_PASSWORD");
+
+var ElasticSettings = new ConnectionConfiguration(new Uri(serverURLElastic))
+                    .ServerCertificateValidationCallback((o, certificate, chain, errors) => true)
+                    .ServerCertificateValidationCallback(CertificateValidations.AllowAll)
+                    .RequestTimeout(TimeSpan.FromMinutes(2));
+                ElasticSettings.BasicAuthentication(usernameElastic, passwordElastic);
+
+                //add in elastic
+                var lowlevelClient = new ElasticLowLevelClient(ElasticSettings);
+                var postData = PostData.MultiJson(data);
+                var indexResponse = lowlevelClient.Bulk<StringResponse>(index, postData, new BulkRequestParameters { SourceEnabled = false });
+                string responseStream = indexResponse.Body;
