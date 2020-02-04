@@ -4,32 +4,41 @@ You can use the [editor on GitHub](https://github.com/safaee007/DotNetCore/edit/
 
 ### DotNetCore Articles
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
-```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
 
-- Bulleted
-- List
 
-1. Numbered
-2. List
+# Post To ElasticSearch
+if you use elastic search in own program
+HTTPS Protocol
 
-**Bold** and _Italic_ and `Code` text
 
-[Link](url) and ![Image](src)
-```
+public static async Task<string> postToElasticsearch(string url, Dictionary<string, dynamic> postData, string user, string pass)
+{
+	HttpResponseMessage ELResponse;
+	string responseString = string.Empty;
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+	try
+	{
+		using (var httpClientHandler = new HttpClientHandler())
+		{
+			httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+			using (var httpClient = new HttpClient(httpClientHandler))
+			{
+				var byteArray = Encoding.ASCII.GetBytes($"{user}:{pass}");
+				httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
+				httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-### Jekyll Themes
+				ELResponse = await httpClient.PostAsync(url, new Managers.UtilitiesManager.JsonContent(postData));
+				responseString = await ELResponse.Content.ReadAsStringAsync();
+			}
+		}
+	}
+	catch (Exception ex)
+	{
+		Console.WriteLine("elastic con: " + ex.ToString());
+	}
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/safaee007/DotNetCore/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+	return responseString;
+}
 
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
