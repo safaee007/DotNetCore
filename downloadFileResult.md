@@ -1,9 +1,10 @@
 # Download file result
+
 ### web api download file for client 
 
 public async Task<FileResult> download()
 {
-    var mimeType = "application/x-zip-compressed";
+    var mimeType = 'application/x-zip-compressed';
     try
     {
         //make zip file OR exist zip file
@@ -29,3 +30,5 @@ public static void CompressZipFolder(string startPath, string zipPath)
 {
     ZipFile.CreateFromDirectory(startPath, zipPath);
 }
+
+
