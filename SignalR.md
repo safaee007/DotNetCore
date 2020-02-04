@@ -11,7 +11,7 @@ public class ChatMessage
 }
 
    
-### ChatHub
+ChatHub.cs
 public class ChatHub : Hub
 {
     public async Task sendMessage(string name, string text)
@@ -22,13 +22,12 @@ public class ChatHub : Hub
         message.Date = DateTime.UtcNow;
 
         //send to all
-        await Clients.All.SendAsync(
-            "reciveMessage", 
+        await Clients.All.SendAsync("reciveMessage", 
             message.Sender, 
             message.Text, 
             message.Date);
     }
 }
 
-### startUP.cs
+startUP.cs
 services.AddSignalR();
