@@ -2,7 +2,7 @@
 
 ### start vs code
 
-in termilan:
+in terminal:
 dotnet new --install Microsoft.AspNetCore.Blazor.Templates::3.1.0-preview4.19579.2
 
 
